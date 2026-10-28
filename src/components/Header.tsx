@@ -72,7 +72,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="sticky top-0 z-40 w-full bg-[#0a081a]/95 backdrop-blur-md border-b border-[#261d56] transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         
         {/* Brand Logo */}
         <a
@@ -89,7 +89,7 @@ export const Header: React.FC<HeaderProps> = ({
           <img
             src="https://res.cloudinary.com/qrnzfn6h/image/upload/v1784801863/My_real_logo_no_bg_uzbovb.png"
             alt="Mikky Digitalz Logo"
-            className="h-16 sm:h-20 w-auto object-contain transition-transform duration-200 group-hover:scale-105 drop-shadow-[0_0_20px_rgba(147,51,234,0.4)]"
+            className="h-14 sm:h-16 w-auto object-contain transition-transform duration-200 group-hover:scale-105 drop-shadow-[0_0_20px_rgba(147,51,234,0.4)]"
             referrerPolicy="no-referrer"
           />
         </a>
@@ -123,37 +123,26 @@ export const Header: React.FC<HeaderProps> = ({
         </nav>
 
         {/* Right Actions */}
-        <div className="hidden lg:flex items-center gap-4">
-          
-          {/* Live Clock Ticker */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#130f2e] border border-[#261d56] text-xs font-mono text-slate-300 shadow-inner">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-            </span>
-            <Clock className="w-3.5 h-3.5 text-purple-400" />
-            <span className="font-bold text-white">{localTime || 'LIVE'}</span>
-          </div>
-
-          {/* WhatsApp quick contact */}
+        <div className="hidden lg:flex items-center gap-3">
+          {/* WhatsApp direct contact */}
           <a
             href="https://wa.me/2349024877275?text=Hi%20Michael,%20I'd%20like%20to%20discuss%20a%20website%20project%20with%20Mikky%20Digitalz"
             target="_blank"
             rel="noopener noreferrer"
-            className="relative flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-semibold bg-[#130f2e] hover:bg-[#1d1645] text-slate-200 border border-[#261d56] hover:border-emerald-500/50 transition-all cursor-pointer shadow-sm"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-semibold bg-[#130f2e] hover:bg-[#1d1645] text-slate-300 hover:text-white border border-[#261d56] hover:border-emerald-500/50 transition-all cursor-pointer shadow-sm active:scale-95"
             title="Chat with Michael on WhatsApp"
           >
             <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Chat on WhatsApp</span>
+            <span>WhatsApp</span>
           </a>
 
           {/* Book a Call CTA */}
           <button
             onClick={onOpenContact}
-            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-purple-600 hover:bg-purple-500 text-white text-sm font-semibold transition-all duration-150 cursor-pointer shadow-lg shadow-purple-600/35 hover:shadow-purple-500/50"
+            className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-purple-600 hover:bg-purple-500 active:scale-95 text-white text-xs sm:text-sm font-semibold transition-all duration-150 cursor-pointer shadow-lg shadow-purple-600/35 hover:shadow-purple-500/50"
           >
             <span>Book a Call</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
 

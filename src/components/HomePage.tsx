@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { 
   ArrowRight, 
   ExternalLink, 
@@ -18,12 +18,15 @@ import {
 import { PROJECTS, SERVICES_DATA, ProjectItem } from '../data/siteData';
 import { BLOG_POSTS } from '../data/blogData';
 import { SocialLinks } from './SocialLinks';
+import { ProjectEstimator } from './ProjectEstimator';
+import { SpeedImpactCalculator } from './SpeedImpactCalculator';
 
 interface HomePageProps {
   onNavigate: (route: string, subParam?: string) => void;
   onOpenContact: (preselectedService?: string) => void;
   onSelectProject: (project: ProjectItem) => void;
   onOpenCalendly: () => void;
+  onOpenAudit?: () => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
@@ -31,8 +34,10 @@ export const HomePage: React.FC<HomePageProps> = ({
   onOpenContact,
   onSelectProject,
   onOpenCalendly,
+  onOpenAudit,
 }) => {
   const [activeWorkflowStep, setActiveWorkflowStep] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   const workflowSteps = [
     {
@@ -72,7 +77,12 @@ export const HomePage: React.FC<HomePageProps> = ({
     Wrench: <Wrench className="w-5 h-5" />,
   };
 
-  const featuredProjects = PROJECTS.filter((p) => p.featured).slice(0, 4);
+  const filteredProjects = useMemo(() => {
+    if (selectedCategory === 'all') {
+      return PROJECTS.filter((p) => p.featured).slice(0, 4);
+    }
+    return PROJECTS.filter((p) => p.category === selectedCategory).slice(0, 4);
+  }, [selectedCategory]);
 
   return (
     <div className="w-full bg-[#070612] text-[#f1f5f9] relative overflow-hidden">
@@ -88,48 +98,64 @@ export const HomePage: React.FC<HomePageProps> = ({
           
           {/* Left Column (7 cols) */}
           <div className="lg:col-span-7 text-left space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/15 text-purple-300 text-xs sm:text-sm font-semibold border border-purple-500/30 shadow-lg shadow-purple-900/20">
-              <Sparkles className="w-4 h-4 text-purple-400" />
-              <span>Mikky Digitalz — High-Converting Web Design</span>
+            {/* Clean Typographic Eyebrow (Zero-Pill Discipline) */}
+            <div className="flex flex-wrap items-center gap-2 text-xs font-mono uppercase tracking-widest text-purple-400 font-bold">
+              <span>WEB ARCHITECTURE</span>
+              <span aria-hidden="true" className="text-purple-600">·</span>
+              <span>CONVERSION DESIGN</span>
+              <span aria-hidden="true" className="text-purple-600">·</span>
+              <span>SUB-SECOND SPEED</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.08]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.08] text-balance">
               Websites Built to <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-violet-300 to-purple-200">Convert</span>, Not Just Impress.
             </h1>
 
             <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
-              Hi, I'm <strong className="text-white">Michael Adetayo</strong> (Mikky Digitalz). I design and build ultra-fast, responsive <span className="text-purple-300 font-medium">WordPress & Elementor</span>, <span className="text-purple-300 font-medium">Squarespace</span>, and <span className="text-purple-300 font-medium">Shopify</span> websites engineered to turn visitors into paying clients.
+              Hi, I'm <strong className="text-white">Michael Adetayo</strong> (Mikky Digitalz). I design and engineer ultra-fast, responsive <span className="text-purple-300 font-medium">WordPress &amp; Elementor</span>, <span className="text-purple-300 font-medium">Squarespace</span>, and <span className="text-purple-300 font-medium">Shopify</span> websites built to turn searchers and AI citations into high-ticket clients.
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
+            <div className="flex flex-col sm:flex-row flex-wrap items-center gap-3.5 pt-2">
               <button
                 onClick={onOpenCalendly}
-                className="w-full sm:w-auto px-8 py-4 rounded-full bg-purple-600 hover:bg-purple-500 text-white font-semibold text-base transition-all duration-150 flex items-center justify-center gap-2 shadow-xl shadow-purple-600/35 hover:shadow-purple-500/50 cursor-pointer hover:scale-105 active:scale-95"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm sm:text-base transition-all duration-150 flex items-center justify-center gap-2 shadow-xl shadow-purple-600/35 hover:shadow-purple-500/50 cursor-pointer hover:scale-105 active:scale-95"
               >
                 <span>Book Call on Calendly</span>
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-4 h-4" />
+              </button>
+
+              <button
+                onClick={() => {
+                  const el = document.getElementById('estimator');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  else onNavigate('pricing');
+                }}
+                className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#16103a] text-purple-200 border border-purple-500/40 font-semibold text-sm sm:text-base hover:bg-[#1f1752] hover:text-white hover:border-purple-300 transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-purple-950/40 active:scale-95"
+              >
+                <span>Calculate Scope &amp; Price</span>
               </button>
 
               <button
                 onClick={() => onNavigate('work')}
-                className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#16103a] text-purple-200 border border-purple-500/30 font-semibold text-base hover:bg-[#1f1752] hover:text-white hover:border-purple-400 transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-purple-950/40"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#0e0b24] text-slate-300 border border-[#261d56] font-semibold text-sm sm:text-base hover:bg-[#151036] hover:text-white hover:border-purple-500/50 transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer shadow-md active:scale-95"
               >
-                <span>Explore Work</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>View Portfolio</span>
               </button>
             </div>
 
-            {/* Availability & Social pills */}
-            <div className="inline-flex flex-col gap-3 p-4 rounded-2xl bg-[#110d2c] border border-[#2c2263] text-xs sm:text-sm text-slate-300 w-full shadow-lg">
-              <div className="flex items-center gap-3">
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-                <span className="font-semibold text-purple-300">Available for new projects:</span>
-                <span className="text-slate-300">Based in Nigeria, working with clients worldwide.</span>
+            {/* Availability & Social Verification */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#0e0b24] border border-[#261d56] text-xs text-slate-300 w-full space-y-3 shadow-lg">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+                <span className="font-mono font-bold text-emerald-400">STATUS: ACCEPTING CLIENTS</span>
+                <span aria-hidden="true" className="text-slate-600">·</span>
+                <span className="text-slate-300">Based in Nigeria, delivering worldwide</span>
+                <span aria-hidden="true" className="text-slate-600">·</span>
+                <span className="text-purple-300 font-medium font-mono">14-Day Delivery Guarantee</span>
               </div>
-              <div className="pt-2 border-t border-[#261d56]">
-                <span className="block text-[11px] font-bold uppercase tracking-wider text-purple-400 mb-2">
-                  Connect Across Platforms:
+              <div className="pt-3 border-t border-[#1e1744]">
+                <span className="block text-[11px] font-mono uppercase tracking-wider text-purple-400 font-bold mb-2">
+                  Verified Freelance Profiles:
                 </span>
                 <SocialLinks variant="pills" />
               </div>
@@ -213,6 +239,12 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
         </div>
       </section>
+
+      {/* QUANTITATIVE SPEED & CONVERSION IMPACT CALCULATOR */}
+      <SpeedImpactCalculator
+        onOpenAudit={onOpenAudit || (() => onNavigate('contact'))}
+        onOpenCalendly={onOpenCalendly}
+      />
 
       {/* HOW MIKKY BUILDS (WORKFLOW) */}
       <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -304,11 +336,12 @@ export const HomePage: React.FC<HomePageProps> = ({
       <section id="reviews" className="py-24 bg-[#070612] border-b border-[#261d56]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/15 text-purple-300 text-xs font-bold border border-purple-500/30 mb-3">
-              <Star className="w-3.5 h-3.5 fill-purple-400 text-purple-400" />
-              <span>CLIENT FEEDBACK</span>
+            <div className="text-xs font-mono uppercase tracking-widest text-purple-400 font-bold mb-2">
+              AUTHENTIC CLIENT FEEDBACK &amp; REVIEWS
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Client Reviews & Feedback</h2>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight text-balance">
+              What Founders &amp; Business Leaders Say
+            </h2>
             <p className="text-sm sm:text-base text-slate-300 mt-2">
               What working together looks like for business leaders, speakers, clinics, and e-commerce founders.
             </p>
@@ -379,26 +412,55 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* SELECTED WORK & MOCKUPS */}
       <section className="py-24 bg-[#0a081a] border-b border-[#261d56]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
-              <span className="text-xs uppercase tracking-widest text-purple-400 font-bold">Portfolio Showcase</span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">Selected Work & Mockups</h2>
+              <span className="text-xs font-mono uppercase tracking-widest text-purple-400 font-bold">Client Showcase</span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1 text-balance">
+                Selected Work &amp; Case Studies
+              </h2>
             </div>
             <button
               onClick={() => onNavigate('work')}
               className="inline-flex items-center gap-2 text-sm font-semibold text-purple-400 hover:text-purple-300 transition-colors cursor-pointer group"
             >
-              <span>View full portfolio showcase</span>
+              <span>View all 13 projects</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </button>
           </div>
 
+          {/* Interactive Platform Filter Tabs */}
+          <div className="flex flex-wrap items-center gap-2 mb-10 p-1.5 bg-[#0e0b24] rounded-xl border border-[#261d56] w-fit">
+            {[
+              { id: 'all', label: 'All Projects' },
+              { id: 'wordpress', label: 'WordPress & Elementor' },
+              { id: 'squarespace', label: 'Squarespace' },
+              { id: 'shopify', label: 'Shopify Storefronts' },
+              { id: 'figma-conversion', label: 'Figma to Live Code' },
+            ].map((cat) => {
+              const active = selectedCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                    active
+                      ? 'bg-purple-600 text-white shadow-md'
+                      : 'text-slate-400 hover:text-white hover:bg-[#1a133d]'
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {featuredProjects.map((proj) => (
+            {filteredProjects.map((proj) => (
               <div
                 key={proj.id}
                 onClick={() => onSelectProject(proj)}
-                className="group bg-[#110d2c] rounded-2xl border border-[#2c2263] overflow-hidden navy-card-hover cursor-pointer flex flex-col justify-between shadow-xl"
+                className="group bg-[#110d2c] rounded-2xl border border-[#2c2263] hover:border-purple-500/50 overflow-hidden navy-card-hover cursor-pointer flex flex-col justify-between shadow-xl transition-all"
               >
                 <div className="relative aspect-16/10 overflow-hidden bg-[#0e0b24]">
                   <img
@@ -407,29 +469,30 @@ export const HomePage: React.FC<HomePageProps> = ({
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute top-4 left-4 bg-purple-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-md">
-                    {proj.categoryLabel}
-                  </div>
-                  {proj.metricsHighlight && (
-                    <div className="absolute top-4 right-4 bg-purple-900/90 border border-purple-400/40 text-purple-200 text-xs font-bold px-3 py-1.5 rounded-full shadow backdrop-blur-md">
-                      {proj.metricsHighlight}
-                    </div>
-                  )}
                 </div>
 
-                <div className="p-6 flex-1 flex flex-col justify-between">
+                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                   <div>
+                    {/* Unboxed Metadata Kicker (Zero-Pill Discipline) */}
+                    <div className="flex items-center justify-between text-xs font-mono text-purple-400 mb-2">
+                      <span>{proj.categoryLabel}</span>
+                      {proj.metricsHighlight && (
+                        <span className="text-emerald-400 font-semibold">{proj.metricsHighlight}</span>
+                      )}
+                    </div>
+
                     <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
                       {proj.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                       {proj.tagline}
                     </p>
                   </div>
+
                   <div className="pt-4 border-t border-[#261d56] flex items-center justify-between text-xs font-bold text-purple-400">
-                    <span>Key Metric: {proj.result}</span>
+                    <span className="text-slate-400 font-normal">Impact: <strong className="text-purple-300">{proj.result}</strong></span>
                     <span className="inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                      View Details <ArrowRight className="w-4 h-4" />
+                      View Case Study <ArrowRight className="w-4 h-4" />
                     </span>
                   </div>
                 </div>
@@ -440,26 +503,31 @@ export const HomePage: React.FC<HomePageProps> = ({
           <div className="mt-12 text-center">
             <button
               onClick={() => onNavigate('work')}
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-purple-600 text-white text-sm font-semibold hover:bg-purple-500 transition-all shadow-xl shadow-purple-600/35 hover:shadow-purple-500/50 cursor-pointer"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-purple-600 text-white text-sm font-semibold hover:bg-purple-500 transition-all shadow-xl shadow-purple-600/35 hover:shadow-purple-500/50 cursor-pointer active:scale-95"
             >
-              <span>Explore All Projects & Mockups</span>
+              <span>Explore All 13 Projects &amp; Case Studies</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
       </section>
 
+      {/* INTERACTIVE SCOPE & INVESTMENT ESTIMATOR */}
+      <ProjectEstimator
+        onOpenCalendly={onOpenCalendly}
+        onOpenContact={onOpenContact}
+      />
+
       {/* SEO, GEO & AEO INSIGHTS SECTION */}
       <section className="py-24 bg-[#070612] border-b border-[#261d56]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 text-purple-300 text-xs font-bold border border-purple-500/30 mb-2">
-                <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-                <span>SEO • GEO • AEO ARCHITECTURE</span>
+              <div className="text-xs font-mono uppercase tracking-widest text-purple-400 font-bold mb-2">
+                SEO · GEO · AEO ARCHITECTURE
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                Generative Search & Speed Playbooks
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight text-balance">
+                Generative Search &amp; Speed Playbooks
               </h2>
               <p className="text-slate-300 text-sm mt-2 max-w-xl">
                 Engineering websites that rank on Google and get synthesized as authoritative answers by Perplexity, ChatGPT, and Gemini.
@@ -500,9 +568,11 @@ export const HomePage: React.FC<HomePageProps> = ({
                       alt={post.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute top-3 left-3 bg-[#070612]/90 border border-purple-500/40 text-purple-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full backdrop-blur-md">
-                      {post.category}
-                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs font-mono text-purple-400 mb-2">
+                    <span>{post.category}</span>
+                    <span className="text-slate-400">{post.readTime}</span>
                   </div>
 
                   <div className="flex items-center gap-2 text-[11px] text-slate-400 mb-2 font-mono">

@@ -62,12 +62,13 @@ export const Footer: React.FC<FooterProps> = ({
               Designing and building fast, high-converting websites on WordPress, Elementor, Squarespace, and Shopify for growing businesses, coaches, and brands worldwide.
             </p>
 
-            <div className="flex flex-col gap-3 mb-4 w-full">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#130f2e] text-slate-300 text-xs font-medium border border-[#261d56] w-fit">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Available for new website projects</span>
+            <div className="flex flex-col gap-2 mb-4 w-full">
+              <div className="text-xs text-slate-400 font-mono">
+                <span className="text-emerald-400 font-bold">ACCEPTING CLIENTS</span>
+                <span aria-hidden="true" className="mx-2 text-slate-600">·</span>
+                <span>Worldwide Delivery</span>
               </div>
-              <SocialLinks variant="icons" className="mt-1" />
+              <SocialLinks variant="icons" className="mt-2" />
             </div>
           </div>
 

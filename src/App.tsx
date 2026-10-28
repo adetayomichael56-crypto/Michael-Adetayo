@@ -268,6 +268,7 @@ export default function App() {
             onOpenContact={handleOpenContact}
             onSelectProject={(proj) => setSelectedProject(proj)}
             onOpenCalendly={() => setIsCalendlyOpen(true)}
+            onOpenAudit={() => setIsSeoAuditOpen(true)}
           />
         )}
 
