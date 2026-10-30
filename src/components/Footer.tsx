@@ -143,17 +143,17 @@ export const Footer: React.FC<FooterProps> = ({
                 onClick={onOpenSeoAudit}
                 className="text-left text-sm text-purple-300 hover:text-purple-200 transition-colors py-1 cursor-pointer flex items-center gap-1.5 font-medium"
               >
-                <span>Google Console & SEO Audit</span>
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-1.5 py-0.5 rounded-full font-bold">GSC Ready</span>
+                <span>AI, Social Mockup &amp; SEO Hub</span>
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-1.5 py-0.5 rounded-full font-bold">GEO / AEO</span>
               </button>
             )}
             <a
-              href="https://contra.com/mitchell_adetayo_wxd9nczu/work"
+              href="https://contra.com/mitchell_adetayo_wxd9nczu"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="me noopener noreferrer"
               className="text-left text-sm text-slate-400 hover:text-purple-300 hover:underline transition-colors py-1 cursor-pointer flex items-center gap-1"
             >
-              <span>Contra Profile</span>
+              <span>Verified Contra Profile</span>
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>

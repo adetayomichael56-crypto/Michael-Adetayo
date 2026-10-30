@@ -450,6 +450,29 @@ async function startServer() {
     }
   });
 
+  // Favicon & Touch Icon endpoints
+  app.get('/favicon.ico', (_req: Request, res: Response) => {
+    const icoPath = path.resolve(__dirname, 'public', 'favicon.ico');
+    if (fs.existsSync(icoPath)) {
+      res.setHeader('Content-Type', 'image/x-icon');
+      res.setHeader('Cache-Control', 'public, max-age=604800');
+      res.sendFile(icoPath);
+    } else {
+      res.redirect('https://res.cloudinary.com/qrnzfn6h/image/upload/v1784801863/My_real_logo_no_bg_uzbovb.png');
+    }
+  });
+
+  app.get(['/favicon.png', '/apple-touch-icon.png'], (_req: Request, res: Response) => {
+    const pngPath = path.resolve(__dirname, 'public', 'favicon.png');
+    if (fs.existsSync(pngPath)) {
+      res.setHeader('Content-Type', 'image/png');
+      res.setHeader('Cache-Control', 'public, max-age=604800');
+      res.sendFile(pngPath);
+    } else {
+      res.redirect('https://res.cloudinary.com/qrnzfn6h/image/upload/v1784801863/My_real_logo_no_bg_uzbovb.png');
+    }
+  });
+
   // Setup Vite development server or production static serving
   if (!isProduction) {
     const vite = await createViteServer({

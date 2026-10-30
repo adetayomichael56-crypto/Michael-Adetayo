@@ -13,7 +13,9 @@ import {
   Sparkles,
   Check,
   TrendingUp,
-  Award
+  Award,
+  Bot,
+  Link2
 } from 'lucide-react';
 import { PROJECTS, SERVICES_DATA, ProjectItem } from '../data/siteData';
 import { BLOG_POSTS } from '../data/blogData';
@@ -517,6 +519,149 @@ export const HomePage: React.FC<HomePageProps> = ({
         onOpenCalendly={onOpenCalendly}
         onOpenContact={onOpenContact}
       />
+
+      {/* AI PLATFORMS, SOCIAL MOCKUP & VERIFIED BACKLINKS SHOWCASE */}
+      <section className="py-20 bg-[#09071a] border-b border-[#261d56] relative overflow-hidden">
+        <div className="absolute top-1/2 left-0 w-96 h-96 bg-purple-600/10 rounded-full blur-[130px] pointer-events-none -translate-y-1/2" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div>
+              <div className="text-xs font-mono uppercase tracking-widest text-purple-400 font-bold mb-2">
+                AI PLATFORMS · SOCIAL MOCKUPS · BACKLINKS
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight text-balance">
+                Searchable on AI Engines, Beautiful on Social Media
+              </h2>
+              <p className="text-slate-300 text-sm mt-2 max-w-2xl leading-relaxed">
+                Engineered with explicit AI crawler allowances (GPTBot, ClaudeBot, PerplexityBot, Applebot-Extended), high-resolution OpenGraph preview mockups, and verified reciprocal backlink architecture.
+              </p>
+            </div>
+
+            {onOpenAudit && (
+              <button
+                onClick={onOpenAudit}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold transition-all shadow-lg shadow-purple-600/30 cursor-pointer self-start md:self-auto shrink-0"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Open AI &amp; Mockup Hub</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            {/* Left Col: Live Mockup Card Preview (7 cols) */}
+            <div className="lg:col-span-7">
+              <div className="rounded-3xl border border-[#2c2263] bg-[#0c0922] p-5 sm:p-6 shadow-2xl relative overflow-hidden group">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-rose-500/80" />
+                    <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+                    <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                    <span className="text-xs font-mono text-slate-400 ml-2">Social OpenGraph Card (1376×768)</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-purple-300 px-2 py-0.5 rounded bg-purple-950/70 border border-purple-500/40">
+                    Live Mockup Preview
+                  </span>
+                </div>
+
+                {/* The Mockup Display */}
+                <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-[#120e2e] border border-[#261d56] shadow-inner mb-4">
+                  <img
+                    src="/website-preview.jpg"
+                    alt="Mikky Digitalz website preview mockup on MacBook Pro and Mobile"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-102"
+                  />
+                  <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-md text-[11px] font-mono text-purple-300 border border-purple-500/30 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                    <span>Active on WhatsApp, LinkedIn, X &amp; Facebook</span>
+                  </div>
+                </div>
+
+                {/* Social Card Metadata */}
+                <div className="p-4 rounded-xl bg-[#070612] border border-[#261d56]">
+                  <div className="text-[11px] font-mono text-purple-400 uppercase tracking-wider mb-1">
+                    mikky-digitalz.netlify.app
+                  </div>
+                  <h4 className="text-sm sm:text-base font-bold text-white mb-1">
+                    Mikky Digitalz — Web Engineering, Generative Engine Optimization (GEO) &amp; AEO
+                  </h4>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Sub-second web engineering and client inquiry systems built for search engines and AI citation by Michael Adetayo.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Col: AI Crawlers & Verified Backlinks (5 cols) */}
+            <div className="lg:col-span-5 space-y-4">
+              
+              {/* Feature 1: AI Platforms */}
+              <div className="p-5 rounded-2xl bg-[#0e0b24] border border-[#261d56]">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold uppercase tracking-wider text-purple-400 flex items-center gap-1.5">
+                    <Bot className="w-4 h-4 text-purple-400" />
+                    Indexed by Top AI Platforms
+                  </span>
+                  <span className="text-[10px] text-emerald-400 font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30">
+                    robots.txt 200 OK
+                  </span>
+                </div>
+                <p className="text-xs text-slate-300 leading-relaxed mb-3">
+                  Perplexity, ChatGPT Search, Claude, Google AI Overviews, and Apple Intelligence have explicit access to crawl, understand, and cite your services.
+                </p>
+                <div className="flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-300">
+                  <span className="px-2 py-0.5 rounded bg-[#18133b] border border-[#261d56]">PerplexityBot</span>
+                  <span className="px-2 py-0.5 rounded bg-[#18133b] border border-[#261d56]">GPTBot</span>
+                  <span className="px-2 py-0.5 rounded bg-[#18133b] border border-[#261d56]">ClaudeBot</span>
+                  <span className="px-2 py-0.5 rounded bg-[#18133b] border border-[#261d56]">Google-Extended</span>
+                  <span className="px-2 py-0.5 rounded bg-[#18133b] border border-[#261d56]">Applebot</span>
+                </div>
+              </div>
+
+              {/* Feature 2: Verified Backlinks */}
+              <div className="p-5 rounded-2xl bg-[#0e0b24] border border-[#261d56]">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold uppercase tracking-wider text-purple-400 flex items-center gap-1.5">
+                    <Link2 className="w-4 h-4 text-purple-400" />
+                    Verified Backlink Network (rel="me")
+                  </span>
+                  <span className="text-[10px] text-purple-300 font-mono font-bold">
+                    7 Channels
+                  </span>
+                </div>
+                <p className="text-xs text-slate-300 leading-relaxed mb-3">
+                  Consolidated authority graph linking Contra, LinkedIn, Fiverr, Behance, Dribbble, X/Twitter, and Facebook for cross-platform trust.
+                </p>
+                <SocialLinks variant="pills" />
+              </div>
+
+              {/* Feature 3: Favicon & Brand Identity */}
+              <div className="p-5 rounded-2xl bg-[#0e0b24] border border-[#261d56] flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <img
+                    src="https://res.cloudinary.com/qrnzfn6h/image/upload/v1784801863/My_real_logo_no_bg_uzbovb.png"
+                    alt="Mikky Digitalz Favicon"
+                    className="w-10 h-10 object-contain drop-shadow-[0_0_10px_rgba(139,92,246,0.5)]"
+                  />
+                  <div>
+                    <span className="text-xs font-bold text-white block">Official Logo Favicon</span>
+                    <span className="text-[11px] text-slate-400 font-mono">/favicon.ico, /favicon.png &amp; Apple Touch</span>
+                  </div>
+                </div>
+                <span className="text-[10px] font-bold text-emerald-400 px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 shrink-0">
+                  Active
+                </span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
 
       {/* SEO, GEO & AEO INSIGHTS SECTION */}
       <section className="py-24 bg-[#070612] border-b border-[#261d56]">

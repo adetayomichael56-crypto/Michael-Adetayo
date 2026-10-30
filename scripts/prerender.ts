@@ -89,7 +89,8 @@ const baseGraph = () => [
     knowsAbout: [
       'WordPress', 'Elementor', 'Elementor Pro', 'Advanced Custom Fields', 'WooCommerce',
       'Squarespace', 'Shopify', 'Figma to WordPress', 'Website redesign', 'Core Web Vitals',
-      'On-page SEO',
+      'On-page SEO', 'Generative Engine Optimization (GEO)', 'Answer Engine Optimization (AEO)',
+      'Sub-second page speed', 'Schema.org structured data'
     ],
     sameAs: SITE.sameAs,
   },
